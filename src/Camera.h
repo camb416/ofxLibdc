@@ -33,6 +33,8 @@ public:
 	virtual bool setup(int cameraNumber = 0);
 	virtual bool setup(string cameraGuid);
 	virtual ~Camera();
+    
+    vector<string> getDeviceIDs();
 	
 	// post-setup settings	
 	
