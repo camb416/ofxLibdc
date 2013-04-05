@@ -139,6 +139,25 @@ namespace ofxLibdc {
 		dc1394_camera_free_list(list);
 		return initCamera(cameraGuid) && applySettings();
 	}
+    
+    vector<string> Camera::getDeviceIDs(){
+        vector<string> hexGuids;
+        dc1394camera_list_t* list;
+		dc1394_camera_enumerate(libdcContext, &list);
+
+        for(int i=0;i<list->num;i++){
+            uint64_t cameraGuid = list->ids[i].guid;
+            stringstream stream;
+            stream << std::hex << cameraGuid;
+            string result( stream.str() );
+            hexGuids.push_back(result);
+        }
+        
+        dc1394_camera_free_list(list);
+        
+		return hexGuids;
+
+    }
 	
 	bool Camera::setup(string cameraGuid) {
 		uint64_t cameraGuidInt;
